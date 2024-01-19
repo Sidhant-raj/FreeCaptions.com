@@ -49,7 +49,7 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
 
-        original_size = os.path.getsize(file_path) / (1024 * 1024.0)  # Convert to megabytes
+        original_size = os.path.getsize(file_path) / (1024 * 1024.0)  
 
         if original_size >= max_size_mb:
             compress_image(file_path)
