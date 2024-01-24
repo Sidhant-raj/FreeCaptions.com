@@ -1,472 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Captions | AI Generated</title>
-    <!-- Cache Control -->
-    <meta http-equiv="Cache-Control" content="max-age=86400, public">
-    <!-- Meta Description -->
-    <meta content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!" name="description" />
-    
-    <!-- Open Graph Tags -->
-    <meta content="Free Captions | AI Generated" property="og:title" />
-    <meta content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!" property="og:description" />
-    <meta content="https://freecaptions.com/static/meta-description-thumbnail.png" property="og:image" />
-    <meta property="og:type" content="website" />
-    
-    <!-- Twitter Card Tags -->
-    <meta content="Free Captions | AI Generated" property="twitter:title" />
-    <meta content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!" property="twitter:description" />
-    <meta content="https://freecaptions.com/static/meta-description-thumbnail.png" property="twitter:image" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap");
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", "sans-serif";
-      }
-      ::-webkit-scrollbar {
-        display: none;
-      }
-      body {
-        /* display: flex; */
-        min-height: 100vh;
-        /* flex-direction: row; */
-        /* background: #e0eafc; */
-        background-color: #fbfbfc;
-        opacity: 1;
-        background-image: radial-gradient(#1683ff 0.75px, #fbfbfc 0.75px);
-        background-size: 25px 25px;
-      }
-      .container-drag-drop {
-        max-width: 650px;
-        width: 100%;
-        padding: 30px;
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      }
-      .container-captions {
-        max-width: 650px;
-        width: 100%;
-        padding: 30px;
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      }
-      .drag-area {
-        height: 400px;
-        border: 3px dashed #e0eafc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin: 10px auto;
-        position: relative;
-      }
-      h3 {
-        margin-bottom: 20px;
-        font-weight: 500;
-      }
-      .drag-area .icon {
-        font-size: 50px;
-        color: #1683ff;
-      }
-      .drag-area .header {
-        font-size: 20px;
-        font-weight: 500;
-        color: #34495e;
-      }
-      .drag-area .support {
-        font-size: 12px;
-        color: grey;
-        margin: 10px 0 15px 0;
-      }
-      .drag-area .button {
-        font-size: 20px;
-        font-weight: 500;
-        color: #1683ff;
-        cursor: pointer;
-      }
-      .drag-area.active {
-        border: 2px solid #1683ff;
-      }
-      .flexbutton {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-      }
-      .flexbutton .buttonupload {
-        padding: 10px;
-        background-color: #1683ff;
-        color: #e0eafc;
-        border: none;
-        border-radius: 10px;
-        width: 100%;
-        cursor: pointer;
-      }
-      .flexbutton .buttonupload:hover {
-        padding: 10px;
-        background-color: #e0eafc;
-        color: #1683ff;
-        border: none;
-        border-radius: 10px;
-        width: 100%;
-        cursor: pointer;
-      }
-      .drag-area .reset-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        color: #ff0000;
-        z-index: 999;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Captions | AI Generated</title>
+  <!-- Cache Control -->
+  <meta http-equiv="Cache-Control" content="max-age=86400, public">
+  <!-- Meta Description -->
+  <meta
+    content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!"
+    name="description" />
+
+  <!-- Open Graph Tags -->
+  <meta content="Free Captions | AI Generated" property="og:title" />
+  <meta
+    content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!"
+    property="og:description" />
+  <meta content="https://freecaptions.com/static/meta-description-thumbnail.png" property="og:image" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Tags -->
+  <meta content="Free Captions | AI Generated" property="twitter:title" />
+  <meta
+    content="Generate captivating captions for your images with our free AI-powered caption generator. Elevate your social media game and get started now!"
+    property="twitter:description" />
+  <meta content="https://freecaptions.com/static/meta-description-thumbnail.png" property="twitter:image" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", "sans-serif";
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      /* display: flex; */
+      min-height: 100vh;
+      /* flex-direction: row; */
+      /* background: #e0eafc; */
+      background-color: #fbfbfc;
+      opacity: 1;
+      background-image: radial-gradient(#1683ff 0.75px, #fbfbfc 0.75px);
+      background-size: 25px 25px;
+    }
+
+    .container-drag-drop {
+      max-width: 650px;
+      width: 100%;
+      padding: 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .container-captions {
+      max-width: 650px;
+      width: 100%;
+      padding: 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .drag-area {
+      height: 400px;
+      border: 3px dashed #e0eafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 10px auto;
+      position: relative;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .drag-area .icon {
+      font-size: 50px;
+      color: #1683ff;
+    }
+
+    .drag-area .header {
+      font-size: 20px;
+      font-weight: 500;
+      color: #34495e;
+    }
+
+    .drag-area .support {
+      font-size: 12px;
+      color: grey;
+      margin: 10px 0 15px 0;
+    }
+
+    .drag-area .button {
+      font-size: 20px;
+      font-weight: 500;
+      color: #1683ff;
+      cursor: pointer;
+    }
+
+    .drag-area.active {
+      border: 2px solid #1683ff;
+    }
+
+    .flexbutton {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .flexbutton .buttonupload {
+      padding: 10px;
+      background-color: #1683ff;
+      color: #e0eafc;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .flexbutton .buttonupload:hover {
+      padding: 10px;
+      background-color: #e0eafc;
+      color: #1683ff;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .drag-area .reset-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: #ff0000;
+      z-index: 999;
+    }
+
+    .drag-area .reset-icon i {
+      z-index: 999;
+      font-size: 20px;
+    }
+
+    .drag-area .hidden {
+      visibility: hidden;
+    }
+
+    .flexbutton .buttonprocess {
+      padding: 10px;
+      background-color: #15e649;
+      color: #e0eafc;
+      border: none;
+      border-radius: 10px;
+      width: 45%;
+      cursor: pointer;
+    }
+
+    .flexbutton .buttonprocess:hover {
+      padding: 10px;
+      background-color: #e0eafc;
+      color: #18cc45;
+      border: none;
+      border-radius: 10px;
+      width: 45%;
+      cursor: pointer;
+    }
+
+    .icon-download {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .download-icon {
+      margin-bottom: 20px;
+    }
+
+    .download-icon a {
+      margin-left: 10px;
+      color: #1683ff;
+      text-decoration: none;
+    }
+
+    .download-icon a:hover {
+      color: #b7bcc7;
+    }
+
+    .download-icon i {
+      font-size: 20px;
+    }
+
+    .download-icon .hidden {
+      visibility: hidden;
+    }
+
+    .spinning-icon {
+      position: absolute;
+      top: 150%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+    }
+
+    .spinning-icon i {
+      font-size: 40px;
+      animation: spin 1s linear infinite;
+      z-index: 999;
+    }
+
+    .spinning-icon.hidden {
+      display: none;
+    }
+
+    .section-divide-1 {
+      margin-top: 20vh;
+      height: 80vh;
+      color: #333333;
+    }
+
+    .section-divide-2 {
+      /* height: 100vh; */
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+    }
+
+    .footer {
+      text-align: center;
+      color: #ffffff;
+      padding-top: 10px;
+      padding: 20px;
+      height: 10vh;
+      width: 100%;
+      background-color: #171717;
+    }
+
+    /* New styles for the navigation bar */
+    .navbar {
+      /* background-color: #424141; */
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 15px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      color: #000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #ffffff;
+      /* Adjust the background color as needed */
+      z-index: 1000;
+      align-items: center;
+    }
+
+    .navbar a {
+      /* color: whitesmoke; */
+      text-decoration: none;
+      margin: 0 15px;
+      /* font-weight: bold; */
+    }
+
+    .navbar a:hover {
+      color: #1149b2;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
 
-      .drag-area .reset-icon i {
-        z-index: 999;
-        font-size: 20px;
+      100% {
+        transform: rotate(360deg);
       }
-      .drag-area .hidden {
-        visibility: hidden;
-      }
+    }
 
-      .flexbutton .buttonprocess {
-        padding: 10px;
-        background-color: #15e649;
-        color: #e0eafc;
-        border: none;
-        border-radius: 10px;
-        width: 45%;
-        cursor: pointer;
-      }
+    /* CSS */
+    .button-get {
+      margin-top: 15vh;
+      font-size: 16px;
+      font-weight: 200;
+      letter-spacing: 1px;
+      padding: 13px 20px 13px;
+      outline: 0;
+      border: 1px solid black;
+      cursor: pointer;
+      position: relative;
+      /* bold */
+      font-weight: 400;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
 
-      .flexbutton .buttonprocess:hover {
-        padding: 10px;
-        background-color: #e0eafc;
-        color: #18cc45;
-        border: none;
-        border-radius: 10px;
-        width: 45%;
-        cursor: pointer;
-      }
-      .icon-download {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      .download-icon {
-        margin-bottom: 20px;
-      }
+    .button-get:after {
+      content: "";
+      background-color: #1683ff;
+      width: 100%;
+      z-index: -1;
+      position: absolute;
+      height: 100%;
+      top: 7px;
+      left: 7px;
+      transition: 0.2s;
+    }
 
-      .download-icon a {
-        margin-left: 10px;
-        color: #1683ff;
-        text-decoration: none;
-      }
+    .button-get:hover:after {
+      top: 0px;
+      left: 0px;
+    }
 
-      .download-icon a:hover {
-        color: #b7bcc7;
-      }
-
-      .download-icon i {
-        font-size: 20px;
-      }
-
-      .download-icon .hidden {
-        visibility: hidden;
-      }
-
-      .spinning-icon {
-        position: absolute;
-        top: 150%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 999;
-      }
-
-      .spinning-icon i {
-        font-size: 40px;
-        animation: spin 1s linear infinite;
-        z-index: 999;
-      }
-      .spinning-icon.hidden {
-        display: none;
-      }
-      .section-divide-1 {
-        margin-top: 20vh;
-        height: 80vh;
-        color: #333333;
-      }
-      .section-divide-2 {
-        /* height: 100vh; */
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        flex-direction: row;
-      }
-      .footer {
-        text-align: center;
-        color: #ffffff;
-        padding-top: 10px;
-        padding: 20px;
-        height: 10vh;
-        width: 100%;
-        background-color: #171717;
-      }
-      /* New styles for the navigation bar */
-      .navbar {
-        /* background-color: #424141; */
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 15px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        color: #000;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #ffffff; /* Adjust the background color as needed */
-        z-index: 1000;
-        align-items: center;
-      }
-
-      .navbar a {
-        /* color: whitesmoke; */
-        text-decoration: none;
-        margin: 0 15px;
-        /* font-weight: bold; */
-      }
-
-      .navbar a:hover {
-        color: #1149b2;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* CSS */
+    @media (min-width: 768px) {
       .button-get {
-        margin-top: 15vh;
-        font-size: 16px;
-        font-weight: 200;
-        letter-spacing: 1px;
-        padding: 13px 20px 13px;
-        outline: 0;
-        border: 1px solid black;
-        cursor: pointer;
-        position: relative;
-        /* bold */
-        font-weight: 400;
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0);
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
+        padding: 13px 50px 13px;
+      }
+    }
+
+    .strikethrough-text {
+      color: black;
+      position: relative;
+    }
+
+    .strikethrough-text::before {
+      content: "";
+      position: absolute;
+      bottom: 45%;
+      left: 0;
+      right: 0;
+      border-bottom: 10px solid red;
+      /* Adjust the thickness and color of the line */
+      /* transform: rotate(-20deg); /* Adjust the angle of the line */
+    }
+
+    .sitedesc {
+      margin-top: 10px;
+      font-size: 1.21em;
+    }
+
+    .MainTitle {
+      font-size: 5em;
+    }
+
+    /* Media query for phones */
+    @media only screen and (max-width: 600px) {
+      .section-divide-2 {
+        /* padding: 20px; */
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+        /* justify-content: space-evenly; */
+        flex-direction: column;
       }
 
-      .button-get:after {
-        content: "";
-        background-color: #1683ff;
-        width: 100%;
-        z-index: -1;
-        position: absolute;
-        height: 100%;
-        top: 7px;
-        left: 7px;
-        transition: 0.2s;
+      .container-captions {
+        margin-top: 20px;
       }
 
-      .button-get:hover:after {
-        top: 0px;
-        left: 0px;
+      .mobile-head {
+        font-size: 0.5em;
       }
 
-      @media (min-width: 768px) {
-        .button-get {
-          padding: 13px 50px 13px;
-        }
-      }
-      .strikethrough-text {
-        color: black;
-        position: relative;
+      .hidden-mobile {
+        display: none;
       }
 
-      .strikethrough-text::before {
-        content: "";
-        position: absolute;
-        bottom: 45%;
-        left: 0;
-        right: 0;
-        border-bottom: 10px solid red; /* Adjust the thickness and color of the line */
-        /* transform: rotate(-20deg); /* Adjust the angle of the line */
+      #dragdroptext-mobile {
+        font-size: 1em;
       }
+
+      .drag-area>#browseButton {
+        font-size: 1em;
+      }
+
       .sitedesc {
-        margin-top: 10px;
-        font-size: 1.21em;
+        padding: 10px;
+        margin-top: 31px;
+        font-size: 1rem;
+        line-height: 1.8em;
       }
+
       .MainTitle {
-        font-size: 5em;
+        font-size: 4em;
       }
-      /* Media query for phones */
-      @media only screen and (max-width: 600px) {
-        .section-divide-2 {
-          /* padding: 20px; */
-          display: flex;
-          margin-top: 20px;
-          align-items: center;
-          /* justify-content: space-evenly; */
-          flex-direction: column;
-        }
 
-        .container-captions {
-          margin-top: 20px;
-        }
-        .mobile-head {
-          font-size: 0.5em;
-        }
-        .hidden-mobile {
-          display: none;
-        }
-        #dragdroptext-mobile {
-          font-size: 1em;
-        }
-        .drag-area > #browseButton {
-          font-size: 1em;
-        }
-        .sitedesc {
-          padding: 10px;
-          margin-top: 31px;
-          font-size: 1rem;
-          line-height: 1.8em;
-        }
-        .MainTitle {
-          font-size: 4em;
-        }
-        .section-divide-1 {
-          height: 60vh;
-        }
-        .button-get {
-          margin-top: 10vh;
-        }
-        .footer {
-          font-size: 0.8em;
-        }
+      .section-divide-1 {
+        height: 60vh;
       }
-    </style>
-  </head>
-  <body>
-    <div class="section-divide-1">
-      <div class="navbar">
-        <img src="static/1.png" width="150" alt="Freecaptions.com" />
-        <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: black"
-          >Privacy Policy</a
-        >
-      </div>
-      <div class="MainTitle">
-        <b
-          ><center class="mobile-head">
-            <span class="strikethrough-text">Paid</span> AI Instagram Caption
-            <br class="hidden-mobile" />
-            Generator
-          </center></b
-        >
-      </div>
-      <div>
-        <center class="sitedesc">
-          If you're looking for a quick and easy way to come up with compelling
-          and unique captions,<br class="hidden-mobile" />
-          then you'll love our Instagram caption generator.
-        </center>
-      </div>
-      <div>
-        <center>
-          <button
-            id="getStartedButton"
-            class="button-get"
-            href="GetStarted"
-            role="button"
-          >
-            Get Started
-          </button>
-        </center>
-      </div>
+
+      .button-get {
+        margin-top: 10vh;
+      }
+
+      .footer {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBT5ENHCG9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-VBT5ENHCG9");
+  </script>
+</head>
+
+<body>
+  <div class="section-divide-1">
+    <div class="navbar">
+      <img src="static/1.png" width="150" alt="Freecaptions.com" />
+      <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: black">Privacy Policy</a>
     </div>
-    <div class="section-divide-2" id="GetStarted">
-      <div class="container-drag-drop">
-        <div class="icon-download">
-          <span>
-            <h3 style="display: inline">Upload your Image</h3>
-          </span>
+    <div class="MainTitle">
+      <b>
+        <center class="mobile-head">
+          <span class="strikethrough-text">Paid</span> AI Instagram Caption
+          <br class="hidden-mobile" />
+          Generator
+        </center>
+      </b>
+    </div>
+    <div>
+      <center class="sitedesc">
+        If you're looking for a quick and easy way to come up with compelling
+        and unique captions,<br class="hidden-mobile" />
+        then you'll love our Instagram caption generator.
+      </center>
+    </div>
+    <div>
+      <center>
+        <button id="getStartedButton" class="button-get" href="GetStarted" role="button">
+          Get Started
+        </button>
+      </center>
+    </div>
+  </div>
+  <div class="section-divide-2" id="GetStarted">
+    <div class="container-drag-drop">
+      <div class="icon-download">
+        <span>
+          <h3 style="display: inline">Upload your Image</h3>
+        </span>
+      </div>
+      <div class="drag-area">
+        <div class="icon">
+          <!-- <i class="fa-solid fa-file-pdf"></i> -->
+          <i class="fa-solid fa-camera-retro"></i>
         </div>
-        <div class="drag-area">
-          <div class="icon">
-            <!-- <i class="fa-solid fa-file-pdf"></i> -->
-            <i class="fa-solid fa-camera-retro"></i>
-          </div>
-          <span class="header" id="dragdroptext-mobile"
-            >Drag & Drop your Image here</span
-          >
-          <span class="header"
-            >or <span class="button" id="browseButton">browse</span></span
-          >
-          <input
-            type="file"
-            hidden
-            id="fileInput"
-            accept="image/jpeg, image/png"
-          />
-          <span class="support">Supports: JPEG, PNG</span>
-          <div class="reset-icon hidden">
-            <i class="fas fa-times"></i>
-          </div>
-        </div>
-        <div class="flexbutton">
-          <button id="uploadButton" class="buttonupload">Upload Image</button>
-        </div>
-        <div class="spinning-icon hidden">
-          <i class="fas fa-spinner"></i>
+        <span class="header" id="dragdroptext-mobile">Drag & Drop your Image here</span>
+        <span class="header">or <span class="button" id="browseButton">browse</span></span>
+        <input type="file" hidden id="fileInput" accept="image/jpeg, image/png" />
+        <span class="support">Supports: JPEG, PNG</span>
+        <div class="reset-icon hidden">
+          <i class="fas fa-times"></i>
         </div>
       </div>
-
-      <div class="container-captions">
-        <!-- Container for displaying captions -->
-        <div class="icon-download">
-          <span>
-            <h3 style="display: inline">Generated Captions</h3>
-          </span>
-        </div>
-        <div class="getcaption">
-          Welcome to FreeCaptions.com – your go-to AI Caption Generator!🚀
-          <br /><br />
-          Effortlessly enhance your images with captivating captions. <br />
-          <br />
-          Simply upload your photos, and our powerful AI engine will craft
-          unique, engaging captions in an instant. 🌟 <br />
-          <br />
-          Our user-friendly interface ensures a seamless experience, making it
-          easy to transform your visuals into compelling stories. 📸
-          <br /><br />
-          Elevate your social media game with FreeCaptions – where creativity
-          meets convenience! Get started now and watch your stories come to
-          life! #FreeCaptions #AIcaptionGenerator<br />
-        </div>
+      <div class="flexbutton">
+        <button id="uploadButton" class="buttonupload">Upload Image</button>
+      </div>
+      <div class="spinning-icon hidden">
+        <i class="fas fa-spinner"></i>
       </div>
     </div>
 
-    <div class="footer">
-      <!-- <p>
+    <div class="container-captions">
+      <!-- Container for displaying captions -->
+      <div class="icon-download">
+        <span>
+          <h3 style="display: inline">Generated Captions</h3>
+        </span>
+      </div>
+      <div class="getcaption">
+        Welcome to FreeCaptions.com – your go-to AI Caption Generator!🚀
+        <br /><br />
+        Effortlessly enhance your images with captivating captions. <br />
+        <br />
+        Simply upload your photos, and our powerful AI engine will craft
+        unique, engaging captions in an instant. 🌟 <br />
+        <br />
+        Our user-friendly interface ensures a seamless experience, making it
+        easy to transform your visuals into compelling stories. 📸
+        <br /><br />
+        Elevate your social media game with FreeCaptions – where creativity
+        meets convenience! Get started now and watch your stories come to
+        life! #FreeCaptions #AIcaptionGenerator<br />
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <!-- <p>
         &copy; 2024
         <a href="/" style="text-decoration: none; color: whitesmoke"
           >CaptionAI.</a
@@ -474,99 +518,77 @@
         All rights reserved.
       </p> -->
 
-      <div
-        style="
+    <div style="
           display: flex;
           flex-direction: row;
           justify-content: space-around;
           align-items: center;
-        "
-      >
-        <span style="display: flex; flex-direction: row; align-items: center;">
-          <img class="hidden-mobile" src="static/2.png" width="150" style="mix-blend-mode: screen;" alt="logo" />
-          <span style="margin-left: 1.5vw"
-            >&copy; 2024
-            <a
-              style="text-decoration: none; color: #fff"
-              href="/"
-              >FreeCaptions.com</a
-            ></span
-          >
-        </span>
-        <span style="display: flex; flex-direction: row; align-items: center">
-          <!-- Page privacy Policy and then Instagram icon from fontawesome -->
-          <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: white"
-            >Privacy Policy</a
-          >
-          <a
-            href="https://www.instagram.com/sidhant.rajj/"
-            style="
+        ">
+      <span style="display: flex; flex-direction: row; align-items: center;">
+        <img class="hidden-mobile" src="static/2.png" width="150" style="mix-blend-mode: screen;" alt="logo" />
+        <span style="margin-left: 1.5vw">&copy; 2024
+          <a style="text-decoration: none; color: #fff" href="/">FreeCaptions.com</a></span>
+      </span>
+      <span style="display: flex; flex-direction: row; align-items: center">
+        <!-- Page privacy Policy and then Instagram icon from fontawesome -->
+        <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: white">Privacy Policy</a>
+        <a href="https://www.instagram.com/sidhant.rajj/" style="
               text-decoration: none;
               color: white;
               justify-content: space-between;
               margin-left: 2vw;
               font-size: 20px;
-            "
-          >
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/sidhant-raj/"
-            style="
+            ">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/sidhant-raj/" style="
               text-decoration: none;
               color: white;
               justify-content: space-between;
               margin-left: 1vw;
               font-size: 20px;
-            "
-          >
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-          <a
-            href="#"
-            style="
+            ">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="#" style="
               text-decoration: none;
               color: white;
               justify-content: space-between;
               margin-left: 1vw;
               font-size: 20px;
-            "
-          >
-            <i class="fa-brands fa-square-x-twitter"></i>
-          </a>
-        </span>
-      </div>
+            ">
+          <i class="fa-brands fa-square-x-twitter"></i>
+        </a>
+      </span>
     </div>
+  </div>
 
-    <script
-      src="https://kit.fontawesome.com/d674823cfa.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const spinningIcon = document.querySelector(".spinning-icon");
-        spinningIcon.classList.add("hidden");
-      });
-
-      const dragArea = document.querySelector(".drag-area");
-      const dragText = document.querySelector(".header");
-      const iconCross = document.querySelector(".reset-icon");
-      let files = [];
-
-      const fileInput = document.getElementById("fileInput");
-      const uploadButton = document.getElementById("uploadButton");
+  <script src="https://kit.fontawesome.com/d674823cfa.js" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
       const spinningIcon = document.querySelector(".spinning-icon");
-      container_captions = document.querySelector(".getcaption");
-      function resetFiles() {
-        files = [];
-        fileInput.value = "";
-        container_captions.innerHTML = "";
-        setupInitialState();
-        attachEventListeners(); // Reattach event listeners after resetting
-      }
+      spinningIcon.classList.add("hidden");
+    });
 
-      function setupInitialState() {
-        dragArea.innerHTML = `
+    const dragArea = document.querySelector(".drag-area");
+    const dragText = document.querySelector(".header");
+    const iconCross = document.querySelector(".reset-icon");
+    let files = [];
+
+    const fileInput = document.getElementById("fileInput");
+    const uploadButton = document.getElementById("uploadButton");
+    const spinningIcon = document.querySelector(".spinning-icon");
+    container_captions = document.querySelector(".getcaption");
+    function resetFiles() {
+      files = [];
+      fileInput.value = "";
+      container_captions.innerHTML = "";
+      setupInitialState();
+      attachEventListeners(); // Reattach event listeners after resetting
+    }
+
+    function setupInitialState() {
+      dragArea.innerHTML = `
     <div class="icon">
       <i class="fa-solid fa-camera-retro"></i>
     </div>
@@ -575,155 +597,156 @@
     <input type="file" hidden id="fileInput" accept="image/jpeg, image/png" />
     <span class="support">Supports: JPEG, PNG</span>
   `;
-        dragText.textContent = "Drag & Drop your files here";
-        iconCross.classList.add("hidden");
-        dragArea.classList.remove("active");
-      }
+      dragText.textContent = "Drag & Drop your files here";
+      iconCross.classList.add("hidden");
+      dragArea.classList.remove("active");
+    }
 
-      function attachEventListeners() {
-        dragArea.addEventListener("dragover", (event) => {
-          event.preventDefault();
-          dragText.textContent = "Release to Upload";
-          dragArea.classList.add("active");
-        });
-
-        dragArea.addEventListener("dragleave", (event) => {
-          event.preventDefault();
-          dragText.textContent = "Drag & Drop your files here";
-          dragArea.classList.remove("active");
-        });
-
-        dragArea.addEventListener("drop", handleDrop);
-
-        document
-          .getElementById("browseButton")
-          .addEventListener("click", () => {
-            fileInput.click();
-          });
-
-        fileInput.addEventListener("change", handleFileInputChange);
-      }
-
-      function handleDrop(event) {
+    function attachEventListeners() {
+      dragArea.addEventListener("dragover", (event) => {
         event.preventDefault();
-        files = event.dataTransfer.files;
-        if (files && files.length > 0 && files[0].type.startsWith("image/")) {
-          displayImage(files[0]);
-        }
-      }
-
-      function handleFileInputChange(event) {
-        files = event.target.files;
-        if (files && files.length > 0 && files[0].type.startsWith("image/")) {
-          displayImage(files[0]);
-        }
-      }
-
-      function displayImage(file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = new Image();
-          img.src = e.target.result;
-          img.style.maxHeight = "100%";
-          img.style.maxWidth = "100%";
-          dragArea.innerHTML = "";
-          dragArea.appendChild(img);
-          dragText.textContent = "";
-          iconCross.classList.remove("hidden");
-          dragArea.classList.add("active");
-
-          // Re-add iconCross
-          const resetIcon = document.createElement("div");
-          resetIcon.className = "reset-icon";
-          resetIcon.innerHTML = '<i class="fas fa-times"></i>';
-          resetIcon.addEventListener("click", resetFiles);
-          dragArea.appendChild(resetIcon);
-        };
-        reader.readAsDataURL(file);
-      }
-
-      uploadButton.addEventListener("click", () => {
-        if (files.length == 1) {
-          container_captions.innerHTML = "";
-          const file = files[0];
-          spinningIcon.classList.remove("hidden");
-          const formData = new FormData();
-          formData.append("file", file);
-          fetch("/upload", {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error(
-                  `Error: ${response.status} ${response.statusText}`
-                );
-              }
-            })
-            .then((jsonResponse) => {
-              const captions = jsonResponse.captions;
-              console.log("Captions:", captions);
-
-              dragArea.classList.remove("active");
-              dragText.textContent = "File uploaded successfully";
-              spinningIcon.classList.add("hidden");
-              //   container_captions.innerHTML = captions.replace(/\n/g, '<br>');
-              newcaptions = captions.replace(/\n/g, "<br>");
-
-              // Simulate typing effect
-              let index = 0;
-              function typeCaptions() {
-                if (index < newcaptions.length) {
-                  if (newcaptions.charAt(index) === "<") {
-                    // If the character is '<', find the closing '>'
-                    const endIndex = newcaptions.indexOf(">", index);
-                    if (endIndex !== -1) {
-                      container_captions.innerHTML += newcaptions.substring(
-                        index,
-                        endIndex + 1
-                      );
-                      index = endIndex + 1;
-                    }
-                  } else {
-                    // For regular characters, append them to the container
-                    container_captions.innerHTML += newcaptions.charAt(index);
-                    index++;
-                  }
-
-                  setTimeout(typeCaptions, 50); // Adjust the timeout for the typing speed
-                }
-              }
-              typeCaptions();
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              spinningIcon.classList.add("hidden");
-            });
-        } else {
-          alert("Select File!!");
-        }
+        dragText.textContent = "Release to Upload";
+        dragArea.classList.add("active");
       });
 
-      // Initial attachment of event listeners
-      attachEventListeners();
-    </script>
-    <script>
+      dragArea.addEventListener("dragleave", (event) => {
+        event.preventDefault();
+        dragText.textContent = "Drag & Drop your files here";
+        dragArea.classList.remove("active");
+      });
+
+      dragArea.addEventListener("drop", handleDrop);
+
       document
-        .getElementById("getStartedButton")
-        .addEventListener("click", function () {
-          const getStartedSection = document.getElementById("GetStarted");
-          scrollTo(getStartedSection);
+        .getElementById("browseButton")
+        .addEventListener("click", () => {
+          fileInput.click();
         });
 
-      function scrollTo(element) {
-        window.scroll({
-          behavior: "smooth",
-          left: 0,
-          top: element.offsetTop,
-        });
+      fileInput.addEventListener("change", handleFileInputChange);
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      files = event.dataTransfer.files;
+      if (files && files.length > 0 && files[0].type.startsWith("image/")) {
+        displayImage(files[0]);
       }
-    </script>
-  </body>
+    }
+
+    function handleFileInputChange(event) {
+      files = event.target.files;
+      if (files && files.length > 0 && files[0].type.startsWith("image/")) {
+        displayImage(files[0]);
+      }
+    }
+
+    function displayImage(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.src = e.target.result;
+        img.style.maxHeight = "100%";
+        img.style.maxWidth = "100%";
+        dragArea.innerHTML = "";
+        dragArea.appendChild(img);
+        dragText.textContent = "";
+        iconCross.classList.remove("hidden");
+        dragArea.classList.add("active");
+
+        // Re-add iconCross
+        const resetIcon = document.createElement("div");
+        resetIcon.className = "reset-icon";
+        resetIcon.innerHTML = '<i class="fas fa-times"></i>';
+        resetIcon.addEventListener("click", resetFiles);
+        dragArea.appendChild(resetIcon);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    uploadButton.addEventListener("click", () => {
+      if (files.length == 1) {
+        container_captions.innerHTML = "";
+        const file = files[0];
+        spinningIcon.classList.remove("hidden");
+        const formData = new FormData();
+        formData.append("file", file);
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(
+                `Error: ${response.status} ${response.statusText}`
+              );
+            }
+          })
+          .then((jsonResponse) => {
+            const captions = jsonResponse.captions;
+            console.log("Captions:", captions);
+
+            dragArea.classList.remove("active");
+            dragText.textContent = "File uploaded successfully";
+            spinningIcon.classList.add("hidden");
+            //   container_captions.innerHTML = captions.replace(/\n/g, '<br>');
+            newcaptions = captions.replace(/\n/g, "<br>");
+
+            // Simulate typing effect
+            let index = 0;
+            function typeCaptions() {
+              if (index < newcaptions.length) {
+                if (newcaptions.charAt(index) === "<") {
+                  // If the character is '<', find the closing '>'
+                  const endIndex = newcaptions.indexOf(">", index);
+                  if (endIndex !== -1) {
+                    container_captions.innerHTML += newcaptions.substring(
+                      index,
+                      endIndex + 1
+                    );
+                    index = endIndex + 1;
+                  }
+                } else {
+                  // For regular characters, append them to the container
+                  container_captions.innerHTML += newcaptions.charAt(index);
+                  index++;
+                }
+
+                setTimeout(typeCaptions, 50); // Adjust the timeout for the typing speed
+              }
+            }
+            typeCaptions();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            spinningIcon.classList.add("hidden");
+          });
+      } else {
+        alert("Select File!!");
+      }
+    });
+
+    // Initial attachment of event listeners
+    attachEventListeners();
+  </script>
+  <script>
+    document
+      .getElementById("getStartedButton")
+      .addEventListener("click", function () {
+        const getStartedSection = document.getElementById("GetStarted");
+        scrollTo(getStartedSection);
+      });
+
+    function scrollTo(element) {
+      window.scroll({
+        behavior: "smooth",
+        left: 0,
+        top: element.offsetTop,
+      });
+    }
+  </script>
+</body>
+
 </html>
