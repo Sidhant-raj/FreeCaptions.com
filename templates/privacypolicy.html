@@ -5,13 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - AI Caption Creator</title>
+    <!-- Meta Description -->
+    <meta content="Privacy Policy Page of Freecaptions.com" name="description" />
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", "sans-serif";
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            min-height: 100vh;
+            background-color: #fbfbfc;
+            opacity: 1;
+            background-image: radial-gradient(#1683ff 0.75px, #fbfbfc 0.75px);
+            background-size: 25px 25px;
         }
 
         h1 {
+            font-size: 5rem;
             color: #333;
         }
 
@@ -20,57 +40,189 @@
             color: #555;
         }
 
-        section {
-            margin-bottom: 30px;
+        /* New styles for the navigation bar */
+        .navbar {
+            /* background-color: #424141; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            color: #000;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #ffffff;
+            /* Adjust the background color as needed */
+            z-index: 1000;
+            align-items: center;
+        }
+
+        .navbar a {
+            /* color: whitesmoke; */
+            text-decoration: none;
+            margin: 0 15px;
+            /* font-weight: bold; */
+        }
+
+        .navbar a:hover {
+            color: #1149b2;
+        }
+
+        .section1 {
+            margin-top: 10vh;
+            /* height: 100vh; */
+            color: #333333;
+        }
+
+        .footer {
+            text-align: center;
+            color: #ffffff;
+            padding-top: 10px;
+            margin-top: 10px;
+            padding: 20px;
+            height: 10vh;
+            width: 100%;
+            background-color: #171717;
+        }
+        .Information{
+            margin-left: 10vw;
+            margin-right: 10vw;
+        }
+        @media only screen and (max-width: 600px) {
+            .hidden-mobile {
+                display: none;
+            }
+
+            .footer {
+                font-size: 0.8em;
+            }
         }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBT5ENHCG9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-VBT5ENHCG9");
+    </script>
 </head>
 
 <body>
+    <div class="section1">
+        <div class="navbar">
+            <img src="static/1.png" width="150" alt="Freecaptions.com" />
+            <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: black">Privacy Policy</a>
+        </div>
 
-    <h1>Privacy Policy</h1>
+        <div class="Information">
+            <h1>Privacy Policy</h1>
 
-    <section>
-        <h2>Introduction</h2>
-        <p>Welcome to the AI Caption Creator privacy policy page. This page informs you of our policies regarding the collection, use, and disclosure of personal information when you use our service.</p>
-    </section>
+            <section>
+                <h2>Introduction</h2>
+                <p>Welcome to the AI Caption Creator privacy policy page. This page informs you of our policies
+                    regarding the
+                    collection, use, and disclosure of personal information when you use our service.</p>
+            </section>
 
-    <section>
-        <h2>Information Collection and Use</h2>
-        <p>We may collect and process the following types of personal information:</p>
-        <ul>
-            <li>Information you provide when using our AI Caption Creator service.</li>
-            <li>Photos and images uploaded to the service for caption generation.</li>
-            <li>Usage data, such as your IP address, browser type, and operating system.</li>
-        </ul>
-        <p>This information is used to improve our service, analyze trends, administer the website, and collect images for future analysis.</p>
-    </section>
+            <section>
+                <h2>Information Collection and Use</h2>
+                <p>We may collect and process the following types of personal information:</p>
+                <ul>
+                    <li>Information you provide when using our AI Caption Creator service.</li>
+                    <li>Photos and images uploaded to the service for caption generation.</li>
+                    <li>Usage data, such as your IP address, browser type, and operating system.</li>
+                </ul>
+                <p>This information is used to improve our service, analyze trends, administer the website, and collect
+                    images
+                    for future analysis.</p>
+            </section>
 
-    <section>
-        <h2>Image Collection for Future Analysis</h2>
-        <p>We collect and store images uploaded to the AI Caption Creator service for the purpose of future analysis and improvement of our artificial intelligence algorithms. These images are anonymized and used to enhance the performance and capabilities of our service over time.</p>
-    </section>
+            <section>
+                <h2>Image Collection for Future Analysis</h2>
+                <p>We collect and store images uploaded to the AI Caption Creator service for the purpose of future
+                    analysis and
+                    improvement of our artificial intelligence algorithms. These images are anonymized and used to
+                    enhance the
+                    performance and capabilities of our service over time.</p>
+            </section>
 
-    <section>
-        <h2>Security</h2>
-        <p>We are committed to ensuring that your information is secure. We have implemented suitable physical, electronic, and managerial procedures to safeguard and secure the information we collect online.</p>
-    </section>
+            <section>
+                <h2>Security</h2>
+                <p>We are committed to ensuring that your information is secure. We have implemented suitable physical,
+                    electronic, and managerial procedures to safeguard and secure the information we collect online.</p>
+            </section>
 
-    <section>
-        <h2>Third-Party Services</h2>
-        <p>Our AI Caption Creator service may use third-party services for processing and storing data. These services have their own privacy policies, and we recommend that you review them.</p>
-    </section>
+            <section>
+                <h2>Third-Party Services</h2>
+                <p>Our AI Caption Creator service may use third-party services for processing and storing data. These
+                    services
+                    have their own privacy policies, and we recommend that you review them.</p>
+            </section>
 
-    <section>
-        <h2>Changes to This Privacy Policy</h2>
-        <p>We may update our privacy policy from time to time. Any changes will be posted on this page, and the date of the latest revision will be indicated at the top of the page.</p>
-    </section>
+            <section>
+                <h2>Changes to This Privacy Policy</h2>
+                <p>We may update our privacy policy from time to time. Any changes will be posted on this page, and the
+                    date of
+                    the latest revision will be indicated at the top of the page.</p>
+            </section>
 
-    <section>
-        <h2>Contact Us</h2>
-        <p>If you have any questions or suggestions about our privacy policy, please contact us at <a href="mailto:sidhantraj0110@gmail.com">sidhantraj0110@gmail.com</a>.</p>
-    </section>
-
+            <section>
+                <h2>Contact Us</h2>
+                <p>If you have any questions or suggestions about our privacy policy, please contact us at <a
+                        href="mailto:support@freecaptions.com">support@freecaptions.com</a>.</p>
+            </section>
+        </div>
+    </div>
+    <div class="footer">
+        <div style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+              align-items: center;
+            ">
+            <span style="display: flex; flex-direction: row; align-items: center;">
+                <img class="hidden-mobile" src="static/2.png" width="150" style="mix-blend-mode: screen;" alt="logo" />
+                <span style="margin-left: 1.5vw">&copy; 2024
+                    <a style="text-decoration: none; color: #fff" href="/">FreeCaptions.com</a></span>
+            </span>
+            <span style="display: flex; flex-direction: row; align-items: center">
+                <!-- Page privacy Policy and then Instagram icon from fontawesome -->
+                <a href="{{ url_for('privacy_policy') }}" style="text-decoration: none; color: white">Privacy Policy</a>
+                <a href="https://www.instagram.com/sidhant.rajj/" style="
+                  text-decoration: none;
+                  color: white;
+                  justify-content: space-between;
+                  margin-left: 2vw;
+                  font-size: 20px;
+                ">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/sidhant-raj/" style="
+                  text-decoration: none;
+                  color: white;
+                  justify-content: space-between;
+                  margin-left: 1vw;
+                  font-size: 20px;
+                ">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="#" style="
+                  text-decoration: none;
+                  color: white;
+                  justify-content: space-between;
+                  margin-left: 1vw;
+                  font-size: 20px;
+                ">
+                    <i class="fa-brands fa-square-x-twitter"></i>
+                </a>
+            </span>
+        </div>
+    </div>
 </body>
 
 </html>
