@@ -2,6 +2,8 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 import os
 import get_caption as gc
 from PIL import Image
+import smtplib
+from email.message import EmailMessage
 
 app = Flask(__name__)
 max_size_mb = 1
@@ -13,6 +15,11 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 #     captions = ["Caption 1", "Caption 2", "Caption 3", "Caption 4", "Caption 5"]
 #     return captions
 
+# Gmail SMTP configuration
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
+EMAIL_ADDRESS = 'donotspellthemail@gmail.com'
+EMAIL_PASSWORD = 'fzfk ukpb slhs rikf'
 
 @app.route('/privacy_policy')
 def privacy_policy():
@@ -57,6 +64,49 @@ def upload_file():
         captions = gc.get_caption_gemini(file_path)
 
         return jsonify({"captions": captions})
+
+@app.route('/contactus', methods=['GET'])
+def contactus():
+    return render_template('contactus.html')
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
+    data = request.get_json()
+    print(data)  
+
+    name = data['name']
+    phone = data['phone']
+    email = data['email']
+    subject = data['subject']
+    message = data['message']
+
+
+    # Create email message
+    msg = EmailMessage()
+    msg.set_content(f"Name: {name}\nEmail: {email}\nPhone: {phone}\nSubject: {subject}\nMessage: {message}")
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = EMAIL_ADDRESS
+
+
+    Usermsg = EmailMessage()
+    Usermsg.set_content(f"Thanks for Contacting us.\n We will reply you soon.\nYour subject: {subject} \nYour Message: {message} \nRegards Freecaptions.com")
+    Usermsg['Subject'] = f"Successful submission of Contact Us form On Freecaptions.com"
+    Usermsg['From'] = EMAIL_ADDRESS
+    Usermsg['To'] = email
+    # Send email via SMTP
+    try:
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.send_message(msg)
+        server.send_message(Usermsg)
+        server.quit()
+        print('Your message has been sent!', 'success')
+    except Exception as e:
+        print('There was an error sending your message. Please try again later.', 'danger')
+
+    return jsonify({'message': 'Form submitted successfully'})
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000, debug=False)
