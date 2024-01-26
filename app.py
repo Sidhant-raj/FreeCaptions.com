@@ -69,6 +69,10 @@ def upload_file():
 def contactus():
     return render_template('contactus.html')
 
+@app.route('/aboutus', methods=['GET'])
+def aboutus():
+    return render_template('aboutus.html')
+
 @app.route('/submit_form', methods=['POST'])
 def submit_form():
     data = request.get_json()
