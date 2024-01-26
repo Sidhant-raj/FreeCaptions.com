@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect,  send_from_directory
 import os
 import get_caption as gc
 from PIL import Image
@@ -21,10 +21,13 @@ SMTP_PORT = 587
 EMAIL_ADDRESS = 'donotspellthemail@gmail.com'
 EMAIL_PASSWORD = 'fzfk ukpb slhs rikf'
 
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, "robots.txt")
+
 @app.route('/privacy_policy')
 def privacy_policy():
     return render_template('privacypolicy.html')
-
 
 @app.route('/', methods=['GET'])
 def index():
