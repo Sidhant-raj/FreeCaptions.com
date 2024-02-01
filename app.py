@@ -25,6 +25,10 @@ EMAIL_PASSWORD = 'fzfk ukpb slhs rikf'
 def static_from_root():
     return send_from_directory(app.static_folder, "robots.txt")
 
+@app.route('/ads.txt')
+def static_ads_from_root():
+    return send_from_directory(app.static_folder, "ads.txt")
+
 @app.route('/privacy_policy')
 def privacy_policy():
     return render_template('privacypolicy.html')
@@ -115,5 +119,5 @@ def submit_form():
 
     return jsonify({'message': 'Form submitted successfully'})
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=5000, debug=False)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)
