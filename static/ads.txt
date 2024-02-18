@@ -3,3 +3,7 @@ google.com, pub-6218983824417742, DIRECT, f08c47fec0942fa0
 google.com, pub-1604857608049552, DIRECT, f08c47fec0942fa0
 
 google.com, pub-7622175895038593, DIRECT, f08c47fec0942fa0
+
+google.com, pub-3364810054087098, DIRECT, f08c47fec0942fa0
+
+google.com, pub-6957299024154569, DIRECT, f08c47fec0942fa0
